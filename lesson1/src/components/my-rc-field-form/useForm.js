@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 
 class FormStore {
   constructor() {
@@ -22,7 +22,7 @@ class FormStore {
     };
   };
 
-  setFieldValue = () => {};
+  setFieldValue = () => { };
 
   setFieldsValue = newStore => {
     this.store = {
@@ -32,7 +32,7 @@ class FormStore {
     console.log("setFieldsValue", this.store, this.fieldEnetities); //sy-log
     // 对应的组件要进行更新
     this.fieldEnetities.forEach(entity => {
-      const {name} = entity.props;
+      const { name } = entity.props;
       console.log("omg", name); //sy-log
 
       Object.keys(newStore).forEach(key => {
@@ -43,11 +43,12 @@ class FormStore {
     });
   };
 
+  //暗号：西撒哈拉
   validate = () => {
     let err = [];
     // todo
     this.fieldEnetities.forEach(entity => {
-      const {name, rules} = entity.props;
+      const { name, rules } = entity.props;
       let value = this.getFieldValue(name);
       let rule = rules && rules[0];
       if (rule && rule.required && (value === undefined || value === "")) {
@@ -65,7 +66,7 @@ class FormStore {
     console.log("this.", this.fieldEnetities); //sy-log
     let err = this.validate();
     // 在这里校验 成功的话 执行onFinish ，失败执行onFinishFailed
-    const {onFinish, onFinishFailed} = this.callbacks;
+    const { onFinish, onFinishFailed } = this.callbacks;
     if (err.length === 0) {
       // 成功的话 执行onFinish
       onFinish(this.getFiledsValue());
@@ -82,6 +83,27 @@ class FormStore {
   getFiledsValue = () => {
     return this.store;
   };
+  //暗号：西撒哈拉
+  validateFields = callback => {
+    //校验
+    let err = []
+    
+    for (let field in this.options) {
+      //获取当前字段校验规则
+      const rule = this.options[field]
+      //如果当前字段是必须的，但用户未输入
+      if (rule.required && this.state[field] === undefined) {
+        err.push({ [field]: rule.message })
+      }
+    }
+    if (err.length === 0) {
+      //校验成功
+      callback(null, this.state)
+    } else {
+      //校验失败
+      callback(err, this.state)
+    }
+  }
   getForm() {
     return {
       registerEntity: this.registerEntity,
