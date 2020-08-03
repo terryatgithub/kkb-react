@@ -1,8 +1,8 @@
-import {createStore, applyMiddleware, combineReducers} from "redux";
+// import {createStore, applyMiddleware, combineReducers} from "redux";
 // import thunk from "redux-thunk";
 // import logger from "redux-logger";
 // import promise from "redux-promise";
-// import {createStore, applyMiddleware} from "../kredux";
+import {createStore, applyMiddleware, combineReducers} from "../kredux";
 
 import isPromise from "is-promise";
 
@@ -18,9 +18,9 @@ function countReducer(state = 0, action) {
 }
 
 const store = createStore(
-  countReducer,
+  // countReducer,
   // ! 课后补充： combineReducers用法
-  // combineReducers({home: countReducer}),
+  combineReducers({home: countReducer}),
   applyMiddleware(thunk, logger, promise)
 );
 
@@ -28,6 +28,8 @@ export default store;
 
 function logger({getState}) {
   return next => action => {
+    console.log('mw logger');
+
     console.log("*******************************"); //sy-log
 
     console.log(action.type + "执行了！"); //sy-log
@@ -48,6 +50,8 @@ function logger({getState}) {
 
 function thunk({dispatch, getState}) {
   return next => action => {
+    console.log('mw thunk');
+
     if (typeof action === "function") {
       return action(dispatch, getState);
     }
@@ -57,6 +61,7 @@ function thunk({dispatch, getState}) {
 
 function promise({dispatch}) {
   return next => action => {
+    console.log('mw promise');
     return isPromise(action) ? action.then(dispatch) : next(action);
   };
 }

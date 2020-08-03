@@ -41,7 +41,7 @@ export default class ReduxPage extends Component {
     return (
       <div>
         <h3>ReduxPage</h3>
-        <p>{store.getState()}</p>
+        <p>{store.getState().home}</p>
         {/* 
           ! 课后补充： combineReducers用法
          */}
