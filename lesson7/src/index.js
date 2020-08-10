@@ -1,9 +1,9 @@
-// import React from "./kreact/index";
-// import ReactDOM from "./kreact/react-dom";
-// import Component from "./kreact/Component";
+import React from "./kreact/index";
+import ReactDOM from "./kreact/react-dom";
+import Component from "./kreact/Component";
 
-import React, {Component} from "react";
-import ReactDOM from "react-dom";
+// import React, {Component} from "react";
+// import ReactDOM from "react-dom";
 import "./index.css";
 
 class ClassComponent extends Component {
@@ -14,7 +14,7 @@ class ClassComponent extends Component {
     return (
       <div className="border">
         class组件-{this.props.name}
-        <p className={this.props.color}>omg</p>
+        <p className={this.props.color} >omg</p>
       </div>
     );
   }

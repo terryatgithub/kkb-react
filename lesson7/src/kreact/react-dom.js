@@ -41,6 +41,18 @@ function createNode(vnode) {
 // 类组件
 function updateClassComponent(vnode) {
   const {type, props} = vnode;
+  const { defaultProps } = type;
+  if(defaultProps) {
+    Object.keys(defaultProps).forEach( key => 
+     { 
+       if(!props[key]) {
+        props[key] = defaultProps[key]
+      }
+     }
+    )
+  }
+  console.log('yb props: ', props);
+
   let cmp = new type(props);
   const vvnode = cmp.render();
   // 生成node节点

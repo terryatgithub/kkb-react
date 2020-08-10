@@ -85,6 +85,12 @@ export default defineConfig({
               component: './more',
             },
             {
+              name: 'terry',
+              icon: 'smile',
+              path: '/terry',
+              component: './terry',
+            },
+            {
               component: './404',
             },
           ],
